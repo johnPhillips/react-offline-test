@@ -8,6 +8,7 @@
     "node-fetch": "^2.6.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "recharts": "^1.8.5",
     "whatwg-fetch": "^3.0.0"
   },
   "devDependencies": {

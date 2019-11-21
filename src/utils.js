@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import "whatwg-fetch";
 
-const URL = 'https://api.carbonintensity.org.uk/generation';
 
 export const useFetch = url => {
     const [isLoading, setIsLoading] = useState(true);
