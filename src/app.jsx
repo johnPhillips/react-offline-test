@@ -1,12 +1,19 @@
 import React from "react";
 import {
-    BarChart, Bar, CartesianGrid, XAxis, YAxis, Tooltip,
+    BarChart,
+    Bar,
+    CartesianGrid,
+    XAxis,
+    YAxis,
+    Tooltip,
 } from 'recharts';
+
 import { useFetch } from './utils';
 
 const URL = 'https://api.carbonintensity.org.uk/generation';
 
 export const Loader = () => (<h1>Loading...</h1>);
+export const ErrorMessage = () => (<h1>Oops...</h1>);
 export const Chart = ({ data }) => {
     const { data: { generationmix } } = data;
     return (
@@ -21,12 +28,15 @@ export const Chart = ({ data }) => {
 };
 
 export const App = () => {
-    const { isLoading, data } = useFetch(URL);
+    const { isLoading, data, didError } = useFetch(URL);
     return (
         <div>
             <h1>UK Energy Mix</h1>
             {
-                isLoading ? <Loader /> : <Chart data={data} />
+                // Eek, nested ternary. I don't want to abstract this further because I
+                // want to keep this app as simple as possible. However, I would adhere
+                // to the team's coding standards here.
+                didError ?  <ErrorMessage /> : isLoading ? <Loader /> : <Chart data={data} />
             }
         </div>
     );

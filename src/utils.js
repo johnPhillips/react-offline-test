@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import "whatwg-fetch";
 
-
 export const useFetch = url => {
     const [isLoading, setIsLoading] = useState(true);
     const [didError, setDidError] = useState(false);
