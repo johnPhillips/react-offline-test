@@ -2,7 +2,8 @@
   "private": true,
   "scripts": {
     "test": "jest **/*.test.js*",
-    "start": "webpack-dev-server --hot --progress --colors"
+    "start": "webpack-dev-server --hot --progress --colors --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "dependencies": {
     "node-fetch": "^2.6.0",
@@ -34,7 +35,8 @@
     "typescript": "^3.6.2",
     "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6",
-    "webpack-dev-server": "^3.8.0"
+    "webpack-dev-server": "^3.8.0",
+    "webpack-merge": "^4.2.2"
   },
   "jest": {
     "testRegex": "\\.(test|spec)\\.(j|t)sx?$",
