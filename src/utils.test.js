@@ -3,7 +3,7 @@ import { renderHook } from "@testing-library/react-hooks";
 import fetchMock from "fetch-mock";
 
 import mockData from "../example_api_response.json";
-import { useFetch } from './utils';
+import { useFetch, pathOr } from './utils';
 
 const testUrl = 'test.com';
 const errorUrl = 'error-url';
@@ -27,7 +27,7 @@ describe("useDataApi", () => {
   it('should call fetch with a GET request to the URL provided, and return the data', async () => {
     const { result, waitForNextUpdate } = renderHook(() => useFetch(testUrl));
 
-    expect(result.current.data).toStrictEqual(null);
+    expect(result.current.data).toStrictEqual({});
 
     await waitForNextUpdate();
 
@@ -53,5 +53,23 @@ describe("useDataApi", () => {
     await waitForNextUpdate();
 
     expect(result.current.didError).toBe(true);
+  });
+});
+
+describe('pathOr', () => {
+  const testObject = { 
+    a: { 
+      b: { 
+        c: 'success'
+      }
+    }
+  };
+
+  it('should return the value at the provided path', () => {
+    expect(pathOr('fail', ['a', 'b', 'c'], testObject)).toStrictEqual('success');
+  });
+
+  it('should return the provided fallback if the value does not exist at the path', () => {
+    expect(pathOr('fail', ['a', 'b', 'x'], testObject)).toStrictEqual('fail');
   });
 });

@@ -4,7 +4,7 @@ import "whatwg-fetch";
 export const useFetch = url => {
     const [isLoading, setIsLoading] = useState(true);
     const [didError, setDidError] = useState(false);
-    const [data, setData] = useState(null);
+    const [data, setData] = useState({});
 
     useEffect(() => {
       async function fetchUrl(url) {
@@ -28,4 +28,8 @@ export const useFetch = url => {
   };
 };
 
-
+// Seemed silly to import Ramda or a similar library for one function
+export const pathOr = (fallback, path, obj) => path.reduce(
+  (acc, key) => (acc && acc[key]) ? acc[key] : fallback,
+  obj
+); 
