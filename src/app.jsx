@@ -1,5 +1,5 @@
 import React from "react";
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 import { Chart, Loader, ErrorMessage } from './components';
 import { useFetch, pathOr } from './utils';
@@ -11,9 +11,15 @@ const CHART_CONFIG = {
     yDataKey: 'perc'
 };
 
+const GlobalStyle = createGlobalStyle`
+  body {
+    background: #f5f5f5;
+  }
+`
 export const Wrapper = styled.main`
     margin: 0 auto;
-    width: 50%; 
+    width: 80%; 
+    height: 50%;
     font-family: Arial, sans-serif;
 `;
 
@@ -29,6 +35,7 @@ export const App = () => {
     
     return (
         <Wrapper>
+            <GlobalStyle />
             <h1>UK Energy Mix</h1>
             {
                 // Eek, nested ternary. I don't want to abstract this further because I
@@ -36,8 +43,8 @@ export const App = () => {
                 // to the team's coding standards here.
                 showErrorScreen ?  <ErrorMessage /> : isLoading ? <Loader /> : <Chart {...chartProps }/>
             }
-        </Wrapper>
-    );
+    </Wrapper>
+);
 };
 
 
